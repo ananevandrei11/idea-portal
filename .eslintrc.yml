@@ -1,6 +1,7 @@
 extends:
   - standard-with-typescript
   - prettier
+  - plugin:prettier/recommended
 ignorePatterns:
   - node_modules
   - dist
