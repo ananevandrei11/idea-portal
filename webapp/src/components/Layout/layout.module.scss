@@ -1,0 +1,56 @@
+@import '../../styles/base';
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
+  grid-template-rows: auto;
+
+  @include mq('sm') {
+    grid-template-columns: 220px 1fr;
+    grid-template-areas:
+      'header main'
+      'header main'
+      'footer footer';
+  }
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  grid-area: header;
+  background-color: $white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  @include mq('sm') {
+    position: relative;
+    border-bottom: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+.headerBody {
+  position: sticky;
+  top: 0;
+  padding: 10px;
+}
+
+.main {
+  grid-area: main;
+  padding: 10px;
+}
+
+.footer {
+  grid-area: footer;
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.link {
+  @include link(#0077cc, #005fa3);
+  font-size: 24px;
+  font-weight: 700;
+}

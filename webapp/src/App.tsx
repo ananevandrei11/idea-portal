@@ -1,16 +1,20 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
+import { Layout } from './components/Layout';
 import { routes } from './lib/routes';
 import { TRPCProvider } from './lib/trpc';
 import { AllIdeasPage } from './pages/AllIdeasPage';
 import { IdeaPage } from './pages/IdeaPage';
+import './styles/global.scss';
 
 export const App = () => {
   return (
     <TRPCProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={routes.pages.allIdeas} element={<AllIdeasPage />} />
-          <Route path={routes.pages.idea({ ideaNick: ':ideaNick' })} element={<IdeaPage />} />
+          <Route element={<Layout />}>
+            <Route path={routes.pages.allIdeas} element={<AllIdeasPage />} />
+            <Route path={routes.pages.idea({ ideaNick: ':ideaNick' })} element={<IdeaPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </TRPCProvider>

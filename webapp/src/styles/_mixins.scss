@@ -1,0 +1,32 @@
+@import 'variables';
+
+@mixin link($color: $blue, $hoverColor: $red) {
+  color: $color;
+  text-decoration: none;
+  transition: color 200ms ease;
+
+  &:hover,
+  &:active {
+    color: $hoverColor;
+    transition: none;
+  }
+}
+
+$heading-size: (
+  'h1': '30/20',
+  'h2': '24/18',
+  'h3': '20/16',
+  'h4': '18/16',
+  'h5': '16/14',
+  'h6': '14/12',
+);
+
+@mixin heading($heading: 'h1') {
+  $type: map-get($heading-size, $heading);
+  $size: str-slice($type, 1, str-index($type, '/') - 1);
+  $margin: str-slice($type, str-index($type, '/') + 1);
+
+  font-size: #{$size}px;
+  font-weight: bold;
+  margin-bottom: #{$margin}px;
+}
