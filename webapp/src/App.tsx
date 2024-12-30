@@ -1,7 +1,12 @@
+import { TRPCProvider } from './lib/trpc';
+import { AllIdeasPage } from './pages/AllIdeasPage';
+
 export const App = () => {
   return (
-    <div>
-      <h1>App</h1>
-    </div>
+    <TRPCProvider>
+      <div>
+        <AllIdeasPage />
+      </div>
+    </TRPCProvider>
   );
 };
