@@ -1,6 +1,7 @@
 @import '../../styles/base';
 
 .layout {
+  grid-template-rows: auto;
   min-height: 100%;
   display: grid;
   grid-template-columns: 1fr;
@@ -8,7 +9,6 @@
     'header'
     'main'
     'footer';
-  grid-template-rows: auto;
 
   @include mq('sm') {
     grid-template-columns: 220px 1fr;
