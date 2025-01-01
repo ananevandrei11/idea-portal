@@ -1,23 +1,17 @@
+import { createIdeaTRPCInput } from '@idea-portal/server/src/router/create-idea/input';
 import { useFormik } from 'formik';
 import { withZodSchema } from 'formik-validator-zod';
 import { type FormEvent } from 'react';
-import { z } from 'zod';
+import { type z } from 'zod';
 import { Input } from '../../components/Input';
 import { Segment } from '../../components/Segment';
 import Textarea from '../../components/Textarea';
+import { trpc } from '../../lib/trpc';
 
-const formSchema = z.object({
-  name: z.string().min(1),
-  nick: z
-    .string()
-    .min(1)
-    .regex(/^[a-z0-9-]+$/, 'Nick must contain only letters'),
-  description: z.string().min(1),
-  text: z.string().min(10, 'Text must be at least 10 characters long'),
-});
-type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.infer<typeof createIdeaTRPCInput>;
 
 export const NewIdeaPage = () => {
+  const crateIdea = trpc.createIdea.useMutation();
   const formik = useFormik<FormValues>({
     initialValues: {
       name: '',
@@ -25,9 +19,13 @@ export const NewIdeaPage = () => {
       description: '',
       text: '',
     },
-    validate: withZodSchema(formSchema),
-    onSubmit: (values) => {
-      console.info('Submitted', values);
+    validate: withZodSchema(createIdeaTRPCInput),
+    onSubmit: async (values) => {
+      try {
+        await crateIdea.mutateAsync(values);
+      } catch (error) {
+        console.error(error);
+      }
     },
   });
 

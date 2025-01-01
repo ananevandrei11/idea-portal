@@ -1,4 +1,4 @@
-import type { TRPCRouter } from '@idea-portal/server/src/trpc';
+import type { TRPCRouter } from '@idea-portal/server/src/router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
