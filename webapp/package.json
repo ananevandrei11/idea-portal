@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit --project ./tsconfig.app.json && tsc --noEmit --project ./tsconfig.node.json",
     "prettify": "prettier --loglevel warn --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}' '!**/{node_modules,dist}/**/*'",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts,.tsx .",
-    "stylelint": "stylelint --cache --cache-location ./node_modules/.cache/.stylelintcache 'src/**/*.scss' --fix"
+    "stylelint": "stylelint --cache --cache-location ./node_modules/.cache/.stylelintcache 'src/**/*.scss' --fix",
+    "stylecheck": "sass --update -q ./src:./node_modules/.cache/.stylecheckcache"
   },
   "dependencies": {
     "@idea-portal/server": "workspace:*",
