@@ -1,6 +1,7 @@
 @import '../../styles/base';
 
 .layout {
+  min-height: 100%;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -11,6 +12,7 @@
 
   @include mq('sm') {
     grid-template-columns: 220px 1fr;
+    grid-template-rows: auto 1fr auto;
     grid-template-areas:
       'header main'
       'header main'
@@ -46,6 +48,7 @@
 .footer {
   grid-area: footer;
   padding: 10px;
+  background-color: $white;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 

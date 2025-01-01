@@ -1,0 +1,34 @@
+@import '../../styles/base';
+
+.paragraph {
+  @include heading('h4');
+  font-weight: 400;
+}
+
+.h1 {
+  @include heading('h1');
+}
+
+.h2 {
+  @include heading('h2');
+}
+
+.h3 {
+  @include heading('h3');
+}
+
+.h4 {
+  @include heading('h4');
+}
+
+.h5 {
+  @include heading('h5');
+}
+
+.h6 {
+  @include heading('h6');
+}
+
+.content {
+  padding: 10px 0;
+}

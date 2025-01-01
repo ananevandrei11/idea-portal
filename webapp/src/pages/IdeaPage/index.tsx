@@ -1,4 +1,5 @@
 import { useParams } from 'react-router';
+import { Segment } from '../../components/Segment';
 import { type IdeaNickParams } from '../../lib/routes';
 import { trpc } from '../../lib/trpc';
 
@@ -15,9 +16,8 @@ export function IdeaPage() {
   }
 
   return (
-    <div>
-      <h1>Idea: {data.idea?.nick}</h1>
+    <Segment title={data.idea?.name} titleSize="h1" description={data.idea?.description}>
       <div dangerouslySetInnerHTML={{ __html: data.idea?.text }} />
-    </div>
+    </Segment>
   );
 }

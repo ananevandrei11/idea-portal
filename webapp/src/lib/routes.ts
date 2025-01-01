@@ -4,5 +4,6 @@ export const routes = {
   pages: {
     allIdeas: '/',
     idea: ({ ideaNick }: IdeaNickParams) => `/idea/${ideaNick}`,
+    newIdea: '/idea/new',
   },
 };

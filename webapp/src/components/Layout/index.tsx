@@ -11,9 +11,18 @@ export const Layout = () => {
             <b>Idea Portal</b>
           </div>
           <nav>
-            <Link to={routes.pages.allIdeas} className={css.link}>
-              All Ideas
-            </Link>
+            <ul>
+              <li>
+                <Link to={routes.pages.allIdeas} className={css.link}>
+                  All Ideas
+                </Link>
+              </li>
+              <li>
+                <Link to={routes.pages.newIdea} className={css.link}>
+                  Add New Idea
+                </Link>
+              </li>
+            </ul>
           </nav>
         </div>
       </header>
