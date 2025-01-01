@@ -29,6 +29,7 @@ export const Input = (props: Props) => {
         value={value}
         name={name}
         id={name}
+        disabled={formik.isSubmitting}
       />
       {error && touched && <div style={{ color: 'red' }}>{error}</div>}
     </div>
