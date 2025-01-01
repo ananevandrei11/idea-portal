@@ -1,37 +1,38 @@
 @import '../../styles/base';
 
 .layout {
-  grid-template-rows: auto;
-  min-height: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    'header'
-    'main'
-    'footer';
-
   @include mq('sm') {
-    grid-template-columns: 220px 1fr;
-    grid-template-rows: auto 1fr auto;
     grid-template-areas:
       'header main'
       'header main'
       'footer footer';
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: auto 1fr auto;
   }
+  display: grid;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+
+  min-height: 100%;
 }
 
 .header {
-  position: sticky;
-  top: 0;
-  grid-area: header;
-  background-color: $white;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
   @include mq('sm') {
     position: relative;
-    border-bottom: none;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: none;
   }
+  position: sticky;
+  top: 0;
+
+  grid-area: header;
+
+  background-color: $white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .headerBody {

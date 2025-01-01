@@ -20,3 +20,6 @@ rules:
   shorthand-property-no-redundant-values: null
   color-hex-length: null
   no-empty-source: null
+  scss/no-global-function-names: null
+  scss/at-function-pattern: null
+  no-duplicate-selectors: null

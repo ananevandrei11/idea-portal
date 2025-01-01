@@ -25,8 +25,7 @@ $heading-size: (
   $type: map-get($heading-size, $heading);
   $size: str-slice($type, 1, str-index($type, '/') - 1);
   $margin: str-slice($type, str-index($type, '/') + 1);
-
+  margin-bottom: #{$margin}px;
   font-size: #{$size}px;
   font-weight: bold;
-  margin-bottom: #{$margin}px;
 }

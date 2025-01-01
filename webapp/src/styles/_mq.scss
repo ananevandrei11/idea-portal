@@ -40,9 +40,11 @@ $mq-media: 'only screen' !default;
   @if not unitless($pxval) {
     $pxval: _mq-strip-units($pxval);
   }
+
   @if not unitless($base) {
     $base: _mq-strip-units($base);
   }
+
   @return ($pxval / $base) * 1em;
 }
 
@@ -78,7 +80,7 @@ $mq-media: 'only screen' !default;
     $media: $mq-media + ' and ';
     $media-query: '';
 
-    @if ($media == false) {
+    @if $media == false {
       $media: '';
     }
 
@@ -107,7 +109,7 @@ $mq-media: 'only screen' !default;
 
       $value: _mq-strip-units($value) * 1px;
 
-      @if ($mq-ems == true) {
+      @if $mq-ems == true {
         $value: _mq-em($value, $mq-em-base);
       }
 
