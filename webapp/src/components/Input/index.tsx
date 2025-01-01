@@ -1,5 +1,7 @@
+import clsx from 'clsx';
 import { type FormikProps } from 'formik';
 import { type InputHTMLAttributes } from 'react';
+import css from './index.module.scss';
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -8,16 +10,21 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export const Input = (props: Props) => {
-  const { name, label, formik, ...rest } = props;
+  const { name, label, formik, placeholder, ...rest } = props;
   const value = formik.values[name];
   const error = formik.errors[name] as string | undefined;
   const touched = formik.touched[name];
 
   return (
-    <div style={{ marginBottom: 10 }}>
-      <label htmlFor={name}>{label}</label>
-      <br />
+    <div className={clsx(css.field, { [css.disabled]: formik.isSubmitting })}>
+      <label className={css.label} htmlFor={name}>
+        {label}
+      </label>
       <input
+        className={clsx(css.input, {
+          [css.value]: value,
+          [css.error]: error && touched,
+        })}
         {...rest}
         onChange={(e) => {
           void formik.setFieldValue(name, e.target.value);

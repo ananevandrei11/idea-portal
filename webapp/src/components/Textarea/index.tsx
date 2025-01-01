@@ -1,5 +1,7 @@
+import clsx from 'clsx';
 import { type FormikProps } from 'formik';
 import { type TextareaHTMLAttributes } from 'react';
+import css from './index.module.scss';
 
 type Props = {
   label: string;
@@ -14,9 +16,10 @@ const Textarea = (props: Props) => {
   const touched = formik.touched[name];
 
   return (
-    <div style={{ marginBottom: 10 }}>
-      <label htmlFor={name}>{label}</label>
-      <br />
+    <div className={clsx(css.field, { [css.disabled]: formik.isSubmitting })}>
+      <label className={css.label} htmlFor={name}>
+        {label}
+      </label>
       <textarea
         {...rest}
         onChange={(e) => {
@@ -29,6 +32,10 @@ const Textarea = (props: Props) => {
         name={name}
         id={name}
         disabled={formik.isSubmitting}
+        className={clsx(css.input, {
+          [css.value]: value,
+          [css.error]: error && touched,
+        })}
       />
       {error && touched && <div style={{ color: 'red' }}>{error}</div>}
     </div>
