@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { tokenNameCookie } from '../../lib/constants';
+import { env } from '../../lib/env';
 import { routes } from '../../lib/routes';
 import { trpc } from '../../lib/trpc';
 
@@ -11,7 +11,7 @@ export const SignOutPage = () => {
 
   useEffect(() => {
     const singOutEvent = async () => {
-      Cookies.remove(tokenNameCookie);
+      Cookies.remove(env.VITE_NAME_TOKEN_COOKIE);
       await trpsUtils.invalidate().then(async () => {
         await navigate(routes.pages.signIn, { replace: true });
       });

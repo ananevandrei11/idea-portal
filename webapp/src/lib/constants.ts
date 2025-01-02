@@ -1,1 +1,1 @@
-export const tokenNameCookie = 'token:ideaportal';
+export const TOKEN_EXPIRES = 7; // days

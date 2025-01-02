@@ -4,7 +4,7 @@ import { httpBatchLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import Cookies from 'js-cookie';
 import superjson from 'superjson';
-import { tokenNameCookie } from './constants';
+import { env } from './env';
 
 export const trpc = createTRPCReact<TRPCRouter>({});
 
@@ -20,9 +20,9 @@ const queryClient = new QueryClient({
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: 'http://localhost:3000/trpc',
+      url: env.VITE_API_TRPC_URL,
       headers: () => {
-        const token = Cookies.get(tokenNameCookie);
+        const token = Cookies.get(env.VITE_NAME_TOKEN_COOKIE);
         return {
           ...(token && { Authorization: `Bearer ${token}` }),
         };

@@ -10,7 +10,8 @@ import { Button } from '../../components/Button';
 import { FormSegment } from '../../components/FormSegment';
 import { Input } from '../../components/Input';
 import { Segment } from '../../components/Segment';
-import { tokenNameCookie } from '../../lib/constants';
+import { TOKEN_EXPIRES } from '../../lib/constants';
+import { env } from '../../lib/env';
 import { routes } from '../../lib/routes';
 import { trpc } from '../../lib/trpc';
 
@@ -41,7 +42,7 @@ export const SingUpPage = () => {
     onSubmit: async (values) => {
       try {
         const { token } = await crateUser.mutateAsync(values);
-        Cookies.set(tokenNameCookie, token, { expires: 7 });
+        Cookies.set(env.VITE_NAME_TOKEN_COOKIE, token, { expires: TOKEN_EXPIRES });
         setError(null);
         formik.resetForm();
         await trpsUtils.invalidate();
