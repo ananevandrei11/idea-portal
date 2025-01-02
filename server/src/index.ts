@@ -13,7 +13,7 @@ void (async () => {
     expressApp.get('/ping', (_, res) => {
       res.send('pong');
     });
-    applyTRPCToExpressApp(expressApp, ctx, trpcRouter);
+    await applyTRPCToExpressApp(expressApp, ctx, trpcRouter);
 
     expressApp.listen(3000, () => {
       console.info('Server started at http://localhost:3000');

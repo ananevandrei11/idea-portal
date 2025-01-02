@@ -13,7 +13,7 @@ export const signUpUserTRPCRoute = trpc.procedure.input(signUpTRPCInput).mutatio
   }
   await ctx.prisma.user.create({
     data: {
-      ...input,
+      nick: input.nick,
       password: crypto.createHash('sha256').update(input.password).digest('hex'),
       createdAt: new Date(),
       updatedAt: new Date(),

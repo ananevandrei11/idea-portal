@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 export const signUpTRPCInput = z.object({
-  name: z.string().min(1),
   nick: z
     .string()
     .min(1)
