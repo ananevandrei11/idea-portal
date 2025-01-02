@@ -22,6 +22,11 @@ export const Layout = () => {
                   Add New Idea
                 </Link>
               </li>
+              <li>
+                <Link to={routes.pages.singUp} className={css.link}>
+                  Sign Up
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>

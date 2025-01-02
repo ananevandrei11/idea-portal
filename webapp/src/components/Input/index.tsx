@@ -10,7 +10,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export const Input = (props: Props) => {
-  const { name, label, formik, placeholder, ...rest } = props;
+  const { name, label, formik, placeholder, type = 'text', ...rest } = props;
   const value = formik.values[name];
   const error = formik.errors[name] as string | undefined;
   const touched = formik.touched[name];
@@ -32,7 +32,7 @@ export const Input = (props: Props) => {
         onBlur={() => {
           void formik.setFieldTouched(name);
         }}
-        type="text"
+        type={type}
         value={value}
         name={name}
         id={name}
