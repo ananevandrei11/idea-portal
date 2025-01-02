@@ -1,6 +1,8 @@
 import cors from 'cors';
 import express from 'express';
 import { type AppContext, createAppContext } from './lib/context';
+import { env } from './lib/env';
+import { applyPassportToExpressApp } from './lib/passport';
 import { applyTRPCToExpressApp } from './lib/trpc';
 import { trpcRouter } from './router';
 
@@ -13,10 +15,11 @@ void (async () => {
     expressApp.get('/ping', (_, res) => {
       res.send('pong');
     });
+    applyPassportToExpressApp(expressApp, ctx);
     await applyTRPCToExpressApp(expressApp, ctx, trpcRouter);
 
-    expressApp.listen(3000, () => {
-      console.info('Server started at http://localhost:3000');
+    expressApp.listen(env.PORT, () => {
+      console.info(`Server started at http://localhost:${env.PORT}`);
     });
   } catch (e) {
     console.error(e);

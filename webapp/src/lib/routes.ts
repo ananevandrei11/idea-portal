@@ -7,5 +7,6 @@ export const routes = {
     newIdea: '/idea/new',
     singUp: '/sign-up',
     signIn: '/sign-in',
+    signOut: '/sign-out',
   },
 };

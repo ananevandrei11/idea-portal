@@ -1,13 +1,17 @@
 import { signUpTRPCInput } from '@idea-portal/server/src/router/signUp/input';
 import { useFormik } from 'formik';
 import { withZodSchema } from 'formik-validator-zod';
+import Cookies from 'js-cookie';
 import { useState, type FormEvent } from 'react';
+import { useNavigate } from 'react-router';
 import { z } from 'zod';
 import { Alert } from '../../components/Alert';
 import { Button } from '../../components/Button';
 import { FormSegment } from '../../components/FormSegment';
 import { Input } from '../../components/Input';
 import { Segment } from '../../components/Segment';
+import { tokenNameCookie } from '../../lib/constants';
+import { routes } from '../../lib/routes';
 import { trpc } from '../../lib/trpc';
 
 const singUpSchema = signUpTRPCInput
@@ -24,7 +28,8 @@ type FormValues = z.infer<typeof singUpSchema>;
 
 export const SingUpPage = () => {
   const crateUser = trpc.signUp.useMutation();
-  const [success, setSuccess] = useState<boolean>(false);
+  const trpsUtils = trpc.useUtils();
+  const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -35,13 +40,12 @@ export const SingUpPage = () => {
     validate: withZodSchema(singUpSchema),
     onSubmit: async (values) => {
       try {
-        await crateUser.mutateAsync(values);
-        formik.resetForm();
-        setSuccess(true);
+        const { token } = await crateUser.mutateAsync(values);
+        Cookies.set(tokenNameCookie, token, { expires: 7 });
         setError(null);
-        setTimeout(() => {
-          setSuccess(false);
-        }, 1000);
+        formik.resetForm();
+        await trpsUtils.invalidate();
+        await navigate(routes.pages.allIdeas);
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Unknown error';
         setError(message);
@@ -64,7 +68,6 @@ export const SingUpPage = () => {
 
           {!formik.isValid && !!formik.submitCount && <Alert type="error">Form is invalid</Alert>}
           {error && <Alert type="error">{error}</Alert>}
-          {success && <Alert type="success">Sign Up is succeeded!</Alert>}
 
           <Button
             disabled={(!formik.isValid && !!formik.submitCount) || formik.isSubmitting}
