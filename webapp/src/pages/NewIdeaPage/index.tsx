@@ -3,6 +3,9 @@ import { useFormik } from 'formik';
 import { withZodSchema } from 'formik-validator-zod';
 import { useState, type FormEvent } from 'react';
 import { type z } from 'zod';
+import { Alert } from '../../components/Alert';
+import { Button } from '../../components/Button';
+import { FormSegment } from '../../components/FormSegment';
 import { Input } from '../../components/Input';
 import { Segment } from '../../components/Segment';
 import Textarea from '../../components/Textarea';
@@ -46,21 +49,24 @@ export const NewIdeaPage = () => {
   return (
     <Segment title="New Idea">
       <form onSubmit={handleSubmit}>
-        <Input label="Name" name="name" formik={formik} />
-        <Input label="Nick" name="nick" formik={formik} />
-        <Input label="Description" name="description" formik={formik} />
-        <Textarea label="Text" name="text" formik={formik} />
-        <br />
+        <FormSegment>
+          <Input label="Name" name="name" formik={formik} />
+          <Input label="Nick" name="nick" formik={formik} />
+          <Input label="Description" name="description" formik={formik} />
+          <Textarea label="Text" name="text" formik={formik} />
 
-        {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Form is invalid</div>}
+          {!formik.isValid && !!formik.submitCount && <Alert type="error">Form is invalid</Alert>}
+          {error && <Alert type="error">{error}</Alert>}
+          {success && <Alert type="success">Great Idea!</Alert>}
 
-        {error && <div style={{ color: 'red' }}>{error}</div>}
-
-        {success && <div style={{ color: 'green' }}>Idea created</div>}
-
-        <button disabled={!formik.isValid && formik.isSubmitting && !!formik.submitCount} type="submit">
-          {formik.isSubmitting ? 'Submitting' : 'Create Idea'}
-        </button>
+          <Button
+            disabled={(!formik.isValid && !!formik.submitCount) || formik.isSubmitting}
+            type="submit"
+            variant="primary"
+          >
+            {formik.isSubmitting ? 'Submitting' : 'Create Idea'}
+          </Button>
+        </FormSegment>
       </form>
     </Segment>
   );

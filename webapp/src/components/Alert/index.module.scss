@@ -1,0 +1,17 @@
+@import '../../styles/base';
+
+.alert {
+  width: fit-content;
+  padding: 10px;
+  border-radius: $borderRadiusSmall;
+
+  &.error {
+    background-color: #ffd1d1;
+    color: $error;
+  }
+
+  &.success {
+    background-color: #d7ffd7;
+    color: $success;
+  }
+}
