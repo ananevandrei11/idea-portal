@@ -2,6 +2,7 @@ import type { TRPCRouter } from '@idea-portal/server/src/router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
+import superjson from 'superjson';
 
 export const trpc = createTRPCReact<TRPCRouter>({});
 
@@ -20,6 +21,7 @@ const trpcClient = trpc.createClient({
       url: 'http://localhost:3000/trpc',
     }),
   ],
+  transformer: superjson,
 });
 
 export const TRPCProvider = ({ children }: { children: React.ReactNode }) => {
