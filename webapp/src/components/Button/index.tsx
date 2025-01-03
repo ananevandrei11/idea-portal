@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { type PropsWithChildren, type ButtonHTMLAttributes } from 'react';
+import { Link } from 'react-router';
 import css from './index.module.scss';
 
 type Props = {
@@ -18,5 +19,24 @@ export const Button = (props: PropsWithChildren<Props>) => {
     >
       {isLoading ? 'Loading...' : children}
     </button>
+  );
+};
+
+export const LinkButton = ({
+  children,
+  to,
+  variant = 'primary',
+  className,
+  isLoading = false,
+}: PropsWithChildren<Props & { children: React.ReactNode; to: string }>) => {
+  return (
+    <Link
+      className={clsx(css.button, css.link, css[variant], className, {
+        [css.loading]: isLoading,
+      })}
+      to={to}
+    >
+      {children}
+    </Link>
   );
 };
