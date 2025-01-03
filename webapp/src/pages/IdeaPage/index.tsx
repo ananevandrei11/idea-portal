@@ -26,6 +26,10 @@ export function IdeaPage() {
         <b>Created At:&nbsp;</b>
         <time dateTime={data.idea.createdAt.toISOString()}>{formatDate(data.idea.createdAt)}</time>
       </div>
+      <div>
+        <b>Author:&nbsp;</b>
+        {data.idea.user?.nick}
+      </div>
       <hr />
       <div dangerouslySetInnerHTML={{ __html: data.idea?.text }} />
     </Segment>
