@@ -1,48 +1,38 @@
-import { useParams } from 'react-router';
+import { type TrpcRouterOutput } from '@idea-portal/server/src/router';
 import { LinkButton } from '../../components/Button';
 import { Segment } from '../../components/Segment';
+import { withIdeaData } from '../../components/WithIdeaData';
 import { formatDate } from '../../helpers/formatDate';
 import { useUserContext } from '../../lib/context';
-import { routes, type IdeaNickParams } from '../../lib/routes';
-import { trpc } from '../../lib/trpc';
+import { routes } from '../../lib/routes';
 
-export function IdeaPage() {
-  const { ideaNick } = useParams<IdeaNickParams>();
-  const idea = trpc.getIdea.useQuery({
-    ideaNick: ideaNick || '',
-  });
+type Props = {
+  idea: NonNullable<TrpcRouterOutput['getIdea']['idea']>;
+};
+
+function IdeaPage(props: Props) {
+  const { idea } = props;
   const user = useUserContext();
 
-  if (idea.isLoading || idea.isFetching) {
-    return <div>Loading...</div>;
-  }
-
-  if (idea.isError) {
-    return <span>Error: {idea.error.message}</span>;
-  }
-
-  if (!idea.data.idea) {
-    return <span>Idea not found</span>;
-  }
-  const ideaData = idea.data.idea;
-
   return (
-    <Segment title={ideaData?.name} titleSize="h1" description={ideaData?.description}>
+    <Segment title={idea?.name} titleSize="h1" description={idea?.description}>
       <div>
         <b>Created At:&nbsp;</b>
-        <time dateTime={ideaData.createdAt.toISOString()}>{formatDate(ideaData.createdAt)}</time>
+        <time dateTime={idea.createdAt.toISOString()}>{formatDate(idea.createdAt)}</time>
       </div>
       <div>
         <b>Author:&nbsp;</b>
-        {ideaData.user?.nick}
+        {idea.user?.nick}
       </div>
       <hr />
-      <div dangerouslySetInnerHTML={{ __html: ideaData?.text }} />
-      {user?.id === ideaData.userId && (
+      <div dangerouslySetInnerHTML={{ __html: idea?.text }} />
+      {user?.id === idea.userId && (
         <div>
-          <LinkButton to={routes.pages.editIdea({ ideaNick: ideaData.nick })}>Edit Idea</LinkButton>
+          <LinkButton to={routes.pages.editIdea({ ideaNick: idea.nick })}>Edit Idea</LinkButton>
         </div>
       )}
     </Segment>
   );
 }
+
+export const IdeaPageRoute = withIdeaData(IdeaPage);

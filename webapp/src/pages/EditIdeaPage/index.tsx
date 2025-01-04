@@ -1,32 +1,21 @@
-import { useParams } from 'react-router';
+import { type TrpcRouterOutput } from '@idea-portal/server/src/router';
+import { withIdeaData } from '../../components/WithIdeaData';
 import { useUserContext } from '../../lib/context';
-import { type IdeaNickParams } from '../../lib/routes';
-import { trpc } from '../../lib/trpc';
 import { EditIdeaForm } from './EditIdeaForm';
 
-export const EditIdeaPage = () => {
-  const { ideaNick } = useParams<IdeaNickParams>();
-  const idea = trpc.getIdea.useQuery({
-    ideaNick: ideaNick || '',
-  });
+type Props = {
+  idea: NonNullable<TrpcRouterOutput['getIdea']['idea']>;
+};
+
+function EditIdeaPage(props: Props) {
+  const { idea } = props;
   const user = useUserContext();
 
-  if (idea.isLoading || idea.isFetching) {
-    return <div>Loading...</div>;
-  }
-
-  if (idea.isError) {
-    return <span>Error: {idea.error.message}</span>;
-  }
-
-  if (!idea.data.idea) {
-    return <span>Idea not found</span>;
-  }
-  const ideaData = idea.data.idea;
-
-  if (user?.id !== ideaData.userId) {
+  if (user?.id !== idea.userId) {
     return <span>An idea can only be edited by the author</span>;
   }
 
-  return <EditIdeaForm idea={ideaData} />;
-};
+  return <EditIdeaForm idea={idea} />;
+}
+
+export const EditIdeaPageRoute = withIdeaData(EditIdeaPage);

@@ -5,8 +5,8 @@ import { AppContextProvider } from './lib/context';
 import { routes } from './lib/routes';
 import { TRPCProvider } from './lib/trpc';
 import { AllIdeasPage } from './pages/AllIdeasPage';
-import { EditIdeaPage } from './pages/EditIdeaPage';
-import { IdeaPage } from './pages/IdeaPage';
+import { EditIdeaPageRoute } from './pages/EditIdeaPage';
+import { IdeaPageRoute } from './pages/IdeaPage';
 import './styles/global.scss';
 import { NewIdeaPage } from './pages/NewIdeaPage';
 import { SingInPage } from './pages/SingInPage';
@@ -24,12 +24,12 @@ export const App = () => {
               <Route path={routes.pages.signIn} element={<SingInPage />} />
               <Route path={routes.pages.signOut} element={<SignOutPage />} />
               <Route path={routes.pages.allIdeas} element={<AllIdeasPage />} />
-              <Route path={routes.pages.idea({ ideaNick: ':ideaNick' })} element={<IdeaPage />} />
+              <Route path={routes.pages.idea({ ideaNick: ':ideaNick' })} element={<IdeaPageRoute />} />
               <Route
                 path={routes.pages.editIdea({ ideaNick: ':ideaNick' })}
                 element={
                   <ProtectedRoute>
-                    <EditIdeaPage />
+                    <EditIdeaPageRoute />
                   </ProtectedRoute>
                 }
               />
