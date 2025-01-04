@@ -4,10 +4,18 @@ import css from './index.module.scss';
 
 type Props = {
   type: 'error' | 'success';
+  hidden?: boolean;
 };
 
-export const Alert = (props: PropsWithChildren<Props>) => {
-  const { type, children } = props;
+export type AlertProps = PropsWithChildren<Props>;
+
+export const Alert = (props: AlertProps) => {
+  const { type, hidden = false, children } = props;
+
+  if (hidden) {
+    return null;
+  }
+
   return (
     <div className={clsx(css[type], css.alert)} role="alert">
       {children}

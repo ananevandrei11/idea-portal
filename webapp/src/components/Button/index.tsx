@@ -8,7 +8,9 @@ type Props = {
   isLoading?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = (props: PropsWithChildren<Props>) => {
+export type ButtonProps = PropsWithChildren<Props>;
+
+export const Button = (props: ButtonProps) => {
   const { variant = 'primary', isLoading = false, className, children, ...rest } = props;
   return (
     <button
@@ -28,7 +30,7 @@ export const LinkButton = ({
   variant = 'primary',
   className,
   isLoading = false,
-}: PropsWithChildren<Props & { children: React.ReactNode; to: string }>) => {
+}: ButtonProps & { to: string }) => {
   return (
     <Link
       className={clsx(css.button, css.link, css[variant], className, {

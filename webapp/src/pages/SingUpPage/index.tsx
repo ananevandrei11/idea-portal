@@ -1,8 +1,5 @@
 import { signUpTRPCInput } from '@idea-portal/server/src/router/signUp/input';
-import { useFormik } from 'formik';
-import { withZodSchema } from 'formik-validator-zod';
 import Cookies from 'js-cookie';
-import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
 import { Alert } from '../../components/Alert';
@@ -10,6 +7,7 @@ import { Button } from '../../components/Button';
 import { FormSegment } from '../../components/FormSegment';
 import { Input } from '../../components/Input';
 import { Segment } from '../../components/Segment';
+import { useFormFormik } from '../../components/hooks/useFormFormik';
 import { TOKEN_EXPIRES } from '../../lib/constants';
 import { env } from '../../lib/env';
 import { routes } from '../../lib/routes';
@@ -25,57 +23,39 @@ const singUpSchema = signUpTRPCInput
     },
     { message: 'Passwords do not match', path: ['confirmPassword'] }
   );
-type FormValues = z.infer<typeof singUpSchema>;
 
 export const SingUpPage = () => {
   const crateUser = trpc.signUp.useMutation();
   const trpsUtils = trpc.useUtils();
   const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
-  const formik = useFormik<FormValues>({
+
+  const { formik, onSubmitForm, buttonProps, alertProps } = useFormFormik({
     initialValues: {
       nick: '',
       password: '',
       confirmPassword: '',
     },
-    validate: withZodSchema(singUpSchema),
+    validationSchema: singUpSchema,
     onSubmit: async (values) => {
-      try {
-        const { token } = await crateUser.mutateAsync(values);
-        Cookies.set(env.VITE_NAME_TOKEN_COOKIE, token, { expires: TOKEN_EXPIRES });
-        setError(null);
-        formik.resetForm();
-        await trpsUtils.invalidate();
-        await navigate(routes.pages.allIdeas);
-      } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
-        setError(message);
-      }
+      const { token } = await crateUser.mutateAsync(values);
+      Cookies.set(env.VITE_NAME_TOKEN_COOKIE, token, { expires: TOKEN_EXPIRES });
+      await trpsUtils.invalidate();
+      await navigate(routes.pages.allIdeas);
     },
+    resetOnSuccess: true,
+    showValidationAlert: true,
   });
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    formik.handleSubmit();
-  };
 
   return (
     <Segment title="New Idea">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmitForm}>
         <FormSegment>
           <Input label="Nick" name="nick" type="text" formik={formik} />
           <Input label="Password" name="password" type="password" formik={formik} />
           <Input label="Confirm Password" name="confirmPassword" type="password" formik={formik} />
-
-          {!formik.isValid && !!formik.submitCount && <Alert type="error">Form is invalid</Alert>}
-          {error && <Alert type="error">{error}</Alert>}
-
-          <Button
-            disabled={(!formik.isValid && !!formik.submitCount) || formik.isSubmitting}
-            type="submit"
-            variant="primary"
-          >
-            {formik.isSubmitting ? 'Submitting' : 'Sing Up'}
+          <Alert {...alertProps} />
+          <Button {...buttonProps} type="submit" variant="primary">
+            Sing Up
           </Button>
         </FormSegment>
       </form>
