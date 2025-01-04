@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { Layout } from './components/Layout';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { AppContextProvider } from './lib/context';
 import { routes } from './lib/routes';
 import { TRPCProvider } from './lib/trpc';
@@ -24,7 +25,14 @@ export const App = () => {
               <Route path={routes.pages.signOut} element={<SignOutPage />} />
               <Route path={routes.pages.allIdeas} element={<AllIdeasPage />} />
               <Route path={routes.pages.idea({ ideaNick: ':ideaNick' })} element={<IdeaPage />} />
-              <Route path={routes.pages.editIdea({ ideaNick: ':ideaNick' })} element={<EditIdeaPage />} />
+              <Route
+                path={routes.pages.editIdea({ ideaNick: ':ideaNick' })}
+                element={
+                  <ProtectedRoute>
+                    <EditIdeaPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path={routes.pages.newIdea} element={<NewIdeaPage />} />
             </Route>
           </Routes>

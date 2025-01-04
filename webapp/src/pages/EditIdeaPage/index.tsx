@@ -24,11 +24,7 @@ export const EditIdeaPage = () => {
   }
   const ideaData = idea.data.idea;
 
-  if (!user) {
-    return <span>Only for authorized</span>;
-  }
-
-  if (user.id !== ideaData.userId) {
+  if (user?.id !== ideaData.userId) {
     return <span>An idea can only be edited by the author</span>;
   }
 
