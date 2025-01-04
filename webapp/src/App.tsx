@@ -9,6 +9,7 @@ import { EditIdeaPageRoute } from './pages/EditIdeaPage';
 import { IdeaPageRoute } from './pages/IdeaPage';
 import './styles/global.scss';
 import { NewIdeaPage } from './pages/NewIdeaPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { SingInPage } from './pages/SingInPage';
 import { SignOutPage } from './pages/SingOutPage';
 import { SingUpPage } from './pages/SingUpPage';
@@ -41,6 +42,7 @@ export const App = () => {
                   </ProtectedRoute>
                 }
               />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
