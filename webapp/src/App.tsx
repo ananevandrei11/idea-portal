@@ -33,7 +33,14 @@ export const App = () => {
                   </ProtectedRoute>
                 }
               />
-              <Route path={routes.pages.newIdea} element={<NewIdeaPage />} />
+              <Route
+                path={routes.pages.newIdea}
+                element={
+                  <ProtectedRoute>
+                    <NewIdeaPage />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
           </Routes>
         </BrowserRouter>
