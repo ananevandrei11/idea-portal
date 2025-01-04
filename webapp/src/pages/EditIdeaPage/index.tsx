@@ -1,4 +1,5 @@
 import { useParams } from 'react-router';
+import { useUserContext } from '../../lib/context';
 import { type IdeaNickParams } from '../../lib/routes';
 import { trpc } from '../../lib/trpc';
 import { EditIdeaForm } from './EditIdeaForm';
@@ -8,9 +9,9 @@ export const EditIdeaPage = () => {
   const idea = trpc.getIdea.useQuery({
     ideaNick: ideaNick || '',
   });
-  const user = trpc.getMe.useQuery();
+  const user = useUserContext();
 
-  if (idea.isLoading || user.isLoading || idea.isFetching || user.isFetching) {
+  if (idea.isLoading || idea.isFetching) {
     return <div>Loading...</div>;
   }
 
@@ -18,20 +19,16 @@ export const EditIdeaPage = () => {
     return <span>Error: {idea.error.message}</span>;
   }
 
-  if (user.isError) {
-    return <span>Error: {user.error.message}</span>;
-  }
-
   if (!idea.data.idea) {
     return <span>Idea not found</span>;
   }
   const ideaData = idea.data.idea;
-  const userData = user.data.me;
-  if (!userData) {
+
+  if (!user) {
     return <span>Only for authorized</span>;
   }
 
-  if (userData.id !== ideaData.userId) {
+  if (user.id !== ideaData.userId) {
     return <span>An idea can only be edited by the author</span>;
   }
 
