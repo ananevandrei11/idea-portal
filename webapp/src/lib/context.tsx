@@ -1,6 +1,7 @@
 import { type TrpcRouterOutput } from '@idea-portal/server/src/router';
 import { createContext, useContext, type ReactNode } from 'react';
 import { trpc } from './trpc';
+import { Loader } from '@/components/Loader';
 
 export type AppContextType = {
   user: TrpcRouterOutput['getMe']['me'];
@@ -12,7 +13,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const { data, isFetching, isLoading } = trpc.getMe.useQuery();
   return (
     <AppContext.Provider value={{ user: data?.me || null }}>
-      {isFetching || isLoading ? <div>...Loading</div> : children}
+      {isFetching || isLoading ? <Loader variant="page" /> : children}
     </AppContext.Provider>
   );
 };

@@ -19,5 +19,12 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, './src/'),
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          silenceDeprecations: ['import', 'global-builtin', 'mixed-decls', 'slash-div'],
+        },
+      },
+    },
   };
 });

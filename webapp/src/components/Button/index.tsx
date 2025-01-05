@@ -19,7 +19,7 @@ export const Button = (props: ButtonProps) => {
       })}
       {...rest}
     >
-      {isLoading ? 'Loading...' : children}
+      <span className={css.text}>{children}</span>
     </button>
   );
 };

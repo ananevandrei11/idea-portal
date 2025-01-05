@@ -2,6 +2,7 @@ import { type TrpcRouterOutput } from '@idea-portal/server/src/router';
 import { type ComponentType } from 'react';
 import { useParams } from 'react-router';
 import { ErrorPageComponent } from '../ErrorComponent';
+import { Loader } from '../Loader';
 import { type IdeaNickParams } from '@/lib/routes';
 import { trpc } from '@/lib/trpc';
 import { NotFoundPage } from '@/pages/accessory/NotFoundPage';
@@ -16,7 +17,7 @@ export function withIdeaData<T>(
     });
 
     if (idea.isLoading || idea.isFetching) {
-      return <div>Loading...</div>;
+      return <Loader variant="page" />;
     }
 
     if (idea.isError) {
