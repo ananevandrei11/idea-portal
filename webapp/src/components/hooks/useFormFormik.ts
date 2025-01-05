@@ -11,7 +11,7 @@ type Props<TZodSchema extends z.ZodTypeAny> = {
   showValidationAlert?: boolean;
   initialValues?: z.infer<TZodSchema>;
   validationSchema?: TZodSchema;
-  onSubmit: (values: z.infer<TZodSchema>, actions: FormikHelpers<z.infer<TZodSchema>>) => Promise<any> | any;
+  onSubmit?: (values: z.infer<TZodSchema>, actions: FormikHelpers<z.infer<TZodSchema>>) => Promise<any> | any;
 };
 
 export function useFormFormik<TZodSchema extends z.ZodTypeAny>(props: Props<TZodSchema>) {
@@ -31,8 +31,11 @@ export function useFormFormik<TZodSchema extends z.ZodTypeAny>(props: Props<TZod
     ...(validationSchema && { validate: withZodSchema(validationSchema) }),
     onSubmit: async (values, formikHelpers) => {
       try {
+        if (!onSubmit) {
+          return;
+        }
         setErrorMessage(null);
-        await onSubmit(values, formikHelpers);
+        await onSubmit?.(values, formikHelpers);
         if (resetOnSuccess) {
           formik.resetForm();
         }

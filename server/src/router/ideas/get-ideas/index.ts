@@ -3,6 +3,7 @@ import { trpc } from '../../../lib/trpc';
 import { getIdeasTRPCInput } from './input';
 
 export const getIdeasTRPCRoute = trpc.procedure.input(getIdeasTRPCInput).query(async ({ input, ctx }) => {
+  const normalizedSearch = input.search ? input.search.trim().replace(/[\s\n\t]/g, ' & ') : undefined;
   const rawIdeas = await ctx.prisma.idea.findMany({
     select: {
       name: true,
@@ -16,6 +17,27 @@ export const getIdeasTRPCRoute = trpc.procedure.input(getIdeasTRPCInput).query(a
         },
       },
     },
+    where: !input.search
+      ? undefined
+      : {
+          OR: [
+            {
+              name: {
+                search: normalizedSearch,
+              },
+            },
+            {
+              description: {
+                search: normalizedSearch,
+              },
+            },
+            {
+              text: {
+                search: normalizedSearch,
+              },
+            },
+          ],
+        },
     orderBy: [
       {
         createdAt: 'desc',

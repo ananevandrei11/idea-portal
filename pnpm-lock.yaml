@@ -156,6 +156,9 @@ importers:
       superjson:
         specifier: ^2.2.2
         version: 2.2.2
+      usehooks-ts:
+        specifier: ^3.1.0
+        version: 3.1.0(react@18.3.1)
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -5502,7 +5505,6 @@ packages:
 
   /lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
-    dev: true
 
   /lodash.includes@4.3.0:
     resolution: {integrity: sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==}
@@ -7214,6 +7216,16 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     dependencies:
+      react: 18.3.1
+    dev: false
+
+  /usehooks-ts@3.1.0(react@18.3.1):
+    resolution: {integrity: sha512-bBIa7yUyPhE1BCc0GmR96VU/15l/9gP1Ch5mYdLcFBaFGQsdmXkvjV0TtOqW1yUd6VjIwDunm+flSciCQXujiw==}
+    engines: {node: '>=16.15.0'}
+    peerDependencies:
+      react: ^16.8.0  || ^17 || ^18
+    dependencies:
+      lodash.debounce: 4.0.8
       react: 18.3.1
     dev: false
 
