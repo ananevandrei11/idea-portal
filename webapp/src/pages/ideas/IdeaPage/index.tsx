@@ -1,5 +1,6 @@
 import { type TrpcRouterOutput } from '@idea-portal/server/src/router';
 import { LinkButton } from '@/components/Button';
+import { LikeSegment } from '@/components/LikeSegment';
 import { Segment } from '@/components/Segment';
 import { withIdeaData } from '@/components/WithIdeaData';
 import { formatDate } from '@/helpers/formatDate';
@@ -26,10 +27,19 @@ function IdeaPage(props: Props) {
       </div>
       <hr />
       <div dangerouslySetInnerHTML={{ __html: idea?.text }} />
+      {user && (
+        <>
+          <br />
+          <LikeSegment idea={idea} />
+        </>
+      )}
       {user?.id === idea.userId && (
-        <div>
-          <LinkButton to={routes.pages.editIdea({ ideaNick: idea.nick })}>Edit Idea</LinkButton>
-        </div>
+        <>
+          <br />
+          <div>
+            <LinkButton to={routes.pages.editIdea({ ideaNick: idea.nick })}>Edit Idea</LinkButton>
+          </div>
+        </>
       )}
     </Segment>
   );

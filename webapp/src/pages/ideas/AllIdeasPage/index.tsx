@@ -54,7 +54,9 @@ export function AllIdeasPage() {
                   titleSize="h3"
                   title={<Link to={routes.pages.idea({ ideaNick: idea.nick })}>{idea.name}</Link>}
                   description={idea.description}
-                />
+                >
+                  <div>Likes: {idea.likesCount}</div>
+                </Segment>
               </li>
             ))}
         </ul>

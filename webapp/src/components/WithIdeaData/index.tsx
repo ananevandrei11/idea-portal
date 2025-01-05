@@ -16,7 +16,7 @@ export function withIdeaData<T>(
       ideaNick: ideaNick || '',
     });
 
-    if (idea.isLoading || idea.isFetching) {
+    if (idea.isLoading) {
       return <Loader variant="page" />;
     }
 

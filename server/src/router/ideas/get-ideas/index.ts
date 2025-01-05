@@ -1,14 +1,20 @@
+import { omit } from 'lodash';
 import { trpc } from '../../../lib/trpc';
 import { getIdeasTRPCInput } from './input';
 
 export const getIdeasTRPCRoute = trpc.procedure.input(getIdeasTRPCInput).query(async ({ input, ctx }) => {
-  const ideas = await ctx.prisma.idea.findMany({
+  const rawIdeas = await ctx.prisma.idea.findMany({
     select: {
       name: true,
       nick: true,
       id: true,
       description: true,
       serialNumber: true,
+      _count: {
+        select: {
+          ideasLikes: true,
+        },
+      },
     },
     orderBy: [
       {
@@ -25,8 +31,13 @@ export const getIdeasTRPCRoute = trpc.procedure.input(getIdeasTRPCInput).query(a
       : undefined,
     take: input.limit + 1,
   });
-  const nextIdea = ideas.at(input.limit);
+
+  const nextIdea = rawIdeas.at(input.limit);
   const nextCursor = nextIdea?.serialNumber;
-  const ideasExpectNext = ideas.slice(0, input.limit);
-  return { ideas: ideasExpectNext, nextCursor };
+  const rawIdeasExpectNext = rawIdeas.slice(0, input.limit);
+  const ideasExceptNext = rawIdeasExpectNext.map((idea) => ({
+    ...omit(idea, ['_count']),
+    likesCount: idea._count.ideasLikes,
+  }));
+  return { ideas: ideasExceptNext, nextCursor };
 });

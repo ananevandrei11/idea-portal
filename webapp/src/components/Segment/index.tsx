@@ -9,9 +9,10 @@ type Props = {
 
 export const Segment = (props: PropsWithChildren<Props>) => {
   const { title, titleSize = 'h1', description, children } = props;
+  const Component = titleSize;
   return (
     <div className={css.segment}>
-      <h1 className={css[titleSize]}>{title}</h1>
+      <Component className={css[titleSize]}>{title}</Component>
       {description && <p className={css.paragraph}>{description}</p>}
       {children && <div className={css.content}>{children}</div>}
     </div>
