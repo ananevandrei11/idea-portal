@@ -1,7 +1,7 @@
 import { Link, Outlet } from 'react-router';
-import { useUserContext } from '../../lib/context';
-import { routes } from '../../lib/routes';
 import css from './layout.module.scss';
+import { useUserContext } from '@/lib/context';
+import { routes } from '@/lib/routes';
 
 export const Layout = () => {
   const user = useUserContext();

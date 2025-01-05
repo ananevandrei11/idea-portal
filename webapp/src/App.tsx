@@ -4,15 +4,15 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { AppContextProvider } from './lib/context';
 import { routes } from './lib/routes';
 import { TRPCProvider } from './lib/trpc';
-import { AllIdeasPage } from './pages/AllIdeasPage';
-import { EditIdeaPageRoute } from './pages/EditIdeaPage';
-import { IdeaPageRoute } from './pages/IdeaPage';
+import { NotFoundPage } from './pages/accessory/NotFoundPage';
+import { SingInPage } from './pages/auth/SingInPage';
+import { SignOutPage } from './pages/auth/SingOutPage';
+import { SingUpPage } from './pages/auth/SingUpPage';
+import { AllIdeasPage } from './pages/ideas/AllIdeasPage';
+import { EditIdeaPageRoute } from './pages/ideas/EditIdeaPage';
+import { IdeaPageRoute } from './pages/ideas/IdeaPage';
 import './styles/global.scss';
-import { NewIdeaPage } from './pages/NewIdeaPage';
-import { NotFoundPage } from './pages/NotFoundPage';
-import { SingInPage } from './pages/SingInPage';
-import { SignOutPage } from './pages/SingOutPage';
-import { SingUpPage } from './pages/SingUpPage';
+import { NewIdeaPage } from './pages/ideas/NewIdeaPage';
 
 export const App = () => {
   return (

@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { Navigate } from 'react-router';
-import { useUserContext } from '../../lib/context';
-import { routes } from '../../lib/routes';
+import { useUserContext } from '@/lib/context';
+import { routes } from '@/lib/routes';
 
 export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const user = useUserContext();

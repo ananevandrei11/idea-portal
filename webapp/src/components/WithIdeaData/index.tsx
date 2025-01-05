@@ -1,10 +1,10 @@
 import { type TrpcRouterOutput } from '@idea-portal/server/src/router';
 import { type ComponentType } from 'react';
 import { useParams } from 'react-router';
-import { type IdeaNickParams } from '../../lib/routes';
-import { trpc } from '../../lib/trpc';
-import { NotFoundPage } from '../../pages/NotFoundPage';
 import { ErrorPageComponent } from '../ErrorComponent';
+import { type IdeaNickParams } from '@/lib/routes';
+import { trpc } from '@/lib/trpc';
+import { NotFoundPage } from '@/pages/accessory/NotFoundPage';
 
 export function withIdeaData<T>(
   WrappedComponent: ComponentType<T & { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }>
