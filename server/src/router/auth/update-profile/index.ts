@@ -7,7 +7,7 @@ export const updateProfileTRPCRoute = trpc.procedure.input(updateProfileTRPCInpu
     throw new Error('Unauthorized');
   }
   if (ctx.me.nick !== input.nick) {
-    const exUser = await ctx.prisma.idea.findUnique({
+    const exUser = await ctx.prisma.user.findUnique({
       where: {
         nick: input.nick,
       },

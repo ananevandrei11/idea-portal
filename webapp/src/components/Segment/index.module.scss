@@ -1,5 +1,9 @@
 @import '../../styles/base';
 
+.segment + .segment {
+  margin-top: 20px;
+}
+
 .paragraph {
   @include heading('h4');
   font-weight: 400;
