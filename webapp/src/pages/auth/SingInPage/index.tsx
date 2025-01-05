@@ -34,7 +34,7 @@ export const SingInPage = () => {
   });
 
   return (
-    <Segment title="New Idea">
+    <Segment title="Sign In">
       <form onSubmit={onSubmitForm}>
         <FormSegment>
           <Input label="Nick" name="nick" type="text" formik={formik} />

@@ -28,8 +28,13 @@ export const Layout = () => {
                     </Link>
                   </li>
                   <li>
+                    <Link to={routes.pages.updateProfile} className={css.link}>
+                      Update Profile
+                    </Link>
+                  </li>
+                  <li>
                     <Link to={routes.pages.signOut} className={css.link}>
-                      Sign Out <i>({user?.nick})</i>
+                      Sign Out <i>({user?.name})</i>
                     </Link>
                   </li>
                 </>

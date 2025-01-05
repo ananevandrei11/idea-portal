@@ -9,5 +9,6 @@ export const routes = {
     singUp: '/sign-up',
     signIn: '/sign-in',
     signOut: '/sign-out',
+    updateProfile: '/update-profile',
   },
 };

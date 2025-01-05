@@ -47,7 +47,7 @@ export const SingUpPage = () => {
   });
 
   return (
-    <Segment title="New Idea">
+    <Segment title="Sing Up">
       <form onSubmit={onSubmitForm}>
         <FormSegment>
           <Input label="Nick" name="nick" type="text" formik={formik} />

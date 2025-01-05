@@ -8,6 +8,7 @@ import { NotFoundPage } from './pages/accessory/NotFoundPage';
 import { SingInPage } from './pages/auth/SingInPage';
 import { SignOutPage } from './pages/auth/SingOutPage';
 import { SingUpPage } from './pages/auth/SingUpPage';
+import { UpdateProfilePage } from './pages/auth/UpdateProfilePage';
 import { AllIdeasPage } from './pages/ideas/AllIdeasPage';
 import { EditIdeaPageRoute } from './pages/ideas/EditIdeaPage';
 import { IdeaPageRoute } from './pages/ideas/IdeaPage';
@@ -39,6 +40,14 @@ export const App = () => {
                 element={
                   <ProtectedRoute>
                     <NewIdeaPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path={routes.pages.updateProfile}
+                element={
+                  <ProtectedRoute>
+                    <UpdateProfilePage />
                   </ProtectedRoute>
                 }
               />

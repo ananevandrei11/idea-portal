@@ -22,7 +22,7 @@ function IdeaPage(props: Props) {
       </div>
       <div>
         <b>Author:&nbsp;</b>
-        {idea.user?.nick}
+        {idea.user?.name}
       </div>
       <hr />
       <div dangerouslySetInnerHTML={{ __html: idea?.text }} />
