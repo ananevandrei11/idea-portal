@@ -1,5 +1,6 @@
 import { type TrpcRouterOutput } from '@idea-portal/server/src/router';
 import { type ComponentType } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router';
 import { ErrorPageComponent } from '../ErrorComponent';
 import { Loader } from '../Loader';
@@ -28,6 +29,13 @@ export function withIdeaData<T>(
       return <NotFoundPage message="Idea not found" />;
     }
 
-    return <WrappedComponent {...props} idea={idea.data.idea} />;
+    return (
+      <>
+        <Helmet>
+          <title>Idea Portal | Idea: {idea.data.idea.name}</title>
+        </Helmet>
+        <WrappedComponent {...props} idea={idea.data.idea} />;
+      </>
+    );
   };
 }

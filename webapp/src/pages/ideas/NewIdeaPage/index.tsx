@@ -1,4 +1,5 @@
 import { createIdeaTRPCInput } from '@idea-portal/server/src/router/ideas/create-idea/input';
+import { Helmet } from 'react-helmet-async';
 import { Alert } from '@/components/Alert';
 import { Button } from '@/components/Button';
 import { FormSegment } from '@/components/FormSegment';
@@ -29,6 +30,9 @@ export const NewIdeaPage = () => {
 
   return (
     <Segment title="New Idea">
+      <Helmet>
+        <title>Idea Portal | New Idea</title>
+      </Helmet>
       <form onSubmit={onSubmitForm}>
         <FormSegment>
           <Input label="Name" name="name" formik={formik} />

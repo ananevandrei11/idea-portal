@@ -1,5 +1,6 @@
 import { getIdeasTRPCInput } from '@idea-portal/server/src/router/ideas/get-ideas/input';
 import { useCallback } from 'react';
+import { Helmet } from 'react-helmet-async';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'react-router';
 import { useDebounceValue } from 'usehooks-ts';
@@ -48,6 +49,9 @@ export function AllIdeasPage() {
 
   return (
     <div>
+      <Helmet>
+        <title>Idea Portal | All Ideas</title>
+      </Helmet>
       <Segment title="All ideas" titleSize="h1" />
       {isLoad && <Loader variant="page" />}
       <div>
