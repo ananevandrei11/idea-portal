@@ -34,7 +34,7 @@ export function withIdeaData<T>(
         <Helmet>
           <title>Idea Portal | Idea: {idea.data.idea.name}</title>
         </Helmet>
-        <WrappedComponent {...props} idea={idea.data.idea} />;
+        <WrappedComponent {...props} idea={idea.data.idea} />
       </>
     );
   };

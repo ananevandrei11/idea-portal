@@ -1,6 +1,7 @@
 import { type TrpcRouterOutput } from '@idea-portal/server/src/router';
 import clsx from 'clsx';
 import { Button } from '../Button';
+import { Icon } from '../Icon';
 import css from './index.module.scss';
 import { trpc } from '@/lib/trpc';
 
@@ -40,13 +41,14 @@ export function LikeSegment(props: Props) {
   };
   return (
     <div>
-      <b
-        className={clsx({
+      <div
+        className={clsx(css.like, {
           [css.me]: idea.isLikedByMe,
         })}
       >
-        Likes: {idea.likesCount}
-      </b>
+        <Icon size={32} className={css.icon} name={idea.isLikedByMe ? 'likeFilled' : 'likeEmpty'} />
+        {idea.likesCount}
+      </div>
       <br />
       <Button type="button" onClick={onClick}>
         Like
