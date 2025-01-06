@@ -1,4 +1,5 @@
 import { Link, Outlet } from 'react-router';
+import Logo from '../../assets/logo.svg?react';
 import css from './layout.module.scss';
 import { useUserContext } from '@/lib/context';
 import { routes } from '@/lib/routes';
@@ -12,6 +13,9 @@ export const Layout = () => {
         <div className={css.headerBody}>
           <div className={css.logo}>
             <b>Idea Portal</b>
+            <span className={css.icon}>
+              <Logo />
+            </span>
           </div>
           <nav>
             <ul>

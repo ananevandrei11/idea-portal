@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import React from '../../../assets/react.svg';
 import { ErrorPageComponent } from '@/components/ErrorComponent';
 
 type Props = {
@@ -14,6 +15,18 @@ export function NotFoundPage(props: Props) {
         <title>Idea Portal | Error</title>
       </Helmet>
       <ErrorPageComponent title={title} message={message} />
+      <img
+        src={React}
+        alt=" "
+        width="400"
+        height="400"
+        style={{
+          display: 'block',
+          maxWidth: '100%',
+          height: 'auto',
+          aspectRatio: 1 / 1,
+        }}
+      />
     </>
   );
 }
