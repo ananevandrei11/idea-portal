@@ -16,5 +16,6 @@ rules:
             - '@ideanick/server/**'
             - '!@ideanick/server/**/'
             - '!@ideanick/server/**/input'
+            - '!@ideanick/server/src/utils/can'
           allowTypeImports: true
           message: 'Only types and input schemas are allowed to be imported from backend workspace'

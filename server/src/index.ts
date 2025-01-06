@@ -5,11 +5,13 @@ import { env } from './lib/env';
 import { applyPassportToExpressApp } from './lib/passport';
 import { applyTRPCToExpressApp } from './lib/trpc';
 import { trpcRouter } from './router';
+import { presetDB } from './scripts/presetDB';
 
 void (async () => {
   let ctx: AppContext | null = null;
   try {
     ctx = createAppContext();
+    await presetDB(ctx);
     const expressApp = express();
     expressApp.use(cors());
     expressApp.get('/ping', (_, res) => {

@@ -1,4 +1,7 @@
 import { type TrpcRouterOutput } from '@idea-portal/server/src/router';
+import { canBlockIdeas, canEditIdea } from '@idea-portal/server/src/utils/can';
+import { BlockIdea } from './BlockIdea';
+import { Alert } from '@/components/Alert';
 import { LinkButton } from '@/components/Button';
 import { LikeSegment } from '@/components/LikeSegment';
 import { Segment } from '@/components/Segment';
@@ -17,6 +20,7 @@ function IdeaPage(props: Props) {
 
   return (
     <Segment title={idea?.name} titleSize="h1" description={idea?.description}>
+      {idea.blockedAt && <Alert type="error">IDEA IS BLOCKED: {formatDate(idea.blockedAt)}</Alert>}
       <div>
         <b>Created At:&nbsp;</b>
         <time dateTime={idea.createdAt.toISOString()}>{formatDate(idea.createdAt)}</time>
@@ -33,12 +37,18 @@ function IdeaPage(props: Props) {
           <LikeSegment idea={idea} />
         </>
       )}
-      {user?.id === idea.userId && (
+      {canEditIdea(user, idea) && (
         <>
           <br />
           <div>
             <LinkButton to={routes.pages.editIdea({ ideaNick: idea.nick })}>Edit Idea</LinkButton>
           </div>
+        </>
+      )}
+      {canBlockIdeas(user) && (
+        <>
+          <br />
+          <BlockIdea idea={idea} />
         </>
       )}
     </Segment>

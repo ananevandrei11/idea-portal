@@ -1,6 +1,7 @@
 import { omit } from 'lodash';
 import { z } from 'zod';
 import { trpc } from '../../../lib/trpc';
+import { hasPermission } from '../../../utils/can';
 
 export const getIdeaTRPCRoute = trpc.procedure
   .input(
@@ -36,6 +37,10 @@ export const getIdeaTRPCRoute = trpc.procedure
         },
       },
     });
+
+    if (rawIdea?.blockedAt && !hasPermission(ctx.me, 'ALL')) {
+      throw new Error('Idea is blocked');
+    }
 
     const isLikedByMe = !!rawIdea?.ideasLikes.length;
     const likesCount = rawIdea?._count.ideasLikes || 0;

@@ -1,4 +1,5 @@
 import { trpc } from '../../../lib/trpc';
+import { canEditIdea } from '../../../utils/can';
 import { updateIdeaTRPCInput } from './input';
 
 export const updateIdeaTRPCRoute = trpc.procedure.input(updateIdeaTRPCInput).mutation(async ({ input, ctx }) => {
@@ -11,9 +12,15 @@ export const updateIdeaTRPCRoute = trpc.procedure.input(updateIdeaTRPCInput).mut
       id: ideaId,
     },
   });
+
   if (!idea) {
     throw new Error('NOT_FOUND');
   }
+
+  if (!canEditIdea(ctx.me, idea)) {
+    throw new Error('NOT YOUR IDEA');
+  }
+
   if (idea.nick !== input.nick) {
     const exIdea = await ctx.prisma.idea.findUnique({
       where: {

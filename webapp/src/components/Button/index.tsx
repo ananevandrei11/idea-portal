@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import css from './index.module.scss';
 
 type Props = {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'warning';
   isLoading?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
