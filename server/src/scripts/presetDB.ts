@@ -8,6 +8,7 @@ export const presetDB = async (ctx: AppContext) => {
       nick: 'admin',
     },
     create: {
+      email: 'admin@example.com',
       nick: 'admin',
       password: getPasswordHash(env.INITIAL_ADMIN_PASSWORD),
       permissions: ['ALL'],

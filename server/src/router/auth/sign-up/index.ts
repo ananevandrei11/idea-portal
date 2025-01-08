@@ -12,12 +12,19 @@ export const signUpUserTRPCRoute = trpc.procedure.input(signUpTRPCInput).mutatio
   if (exUser) {
     throw new Error('User with this nick already exists');
   }
+  const exUserEmail = await ctx.prisma.user.findUnique({
+    where: {
+      email: input.email,
+    },
+  });
+  if (exUserEmail) {
+    throw new Error('User with this email already exists');
+  }
   const user = await ctx.prisma.user.create({
     data: {
       nick: input.nick,
       password: getPasswordHash(input.password),
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      email: input.email,
     },
   });
   const token = signJWT(user.id);

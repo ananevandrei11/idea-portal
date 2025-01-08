@@ -34,6 +34,7 @@ export const SingUpPage = () => {
       nick: '',
       password: '',
       confirmPassword: '',
+      email: '',
     },
     validationSchema: singUpSchema,
     onSubmit: async (values) => {
@@ -51,6 +52,7 @@ export const SingUpPage = () => {
       <form onSubmit={onSubmitForm}>
         <FormSegment>
           <Input label="Nick" name="nick" type="text" formik={formik} />
+          <Input label="Email" name="email" type="email" formik={formik} />
           <Input label="Password" name="password" type="password" formik={formik} />
           <Input label="Confirm Password" name="confirmPassword" type="password" formik={formik} />
           <Alert {...alertProps} />
