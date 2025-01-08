@@ -1,3 +1,4 @@
+import { sendIdeaBlockedEmail } from '../../../lib/email';
 import { trpc } from '../../../lib/trpc';
 import { canBlockIdeas } from '../../../utils/can';
 import { blockIdeaTRPCInput } from './input';
@@ -14,6 +15,9 @@ export const blockIdeaTRPCRoute = trpc.procedure.input(blockIdeaTRPCInput).mutat
     where: {
       id: ideaId,
     },
+    include: {
+      user: true,
+    },
   });
   if (!idea) {
     throw new Error('NOT_FOUND');
@@ -26,5 +30,6 @@ export const blockIdeaTRPCRoute = trpc.procedure.input(blockIdeaTRPCInput).mutat
       blockedAt: new Date(),
     },
   });
+  await sendIdeaBlockedEmail({ user: idea.user, idea });
   return true;
 });

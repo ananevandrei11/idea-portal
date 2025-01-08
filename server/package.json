@@ -3,15 +3,19 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "ts-node-dev --watch ./.env --rs --exit-child ./src/index.ts",
-    "build": "rimraf ./dist && tsc --build ./tsconfig.json",
+    "dev": "ts-node-dev --watch ./src/emails/dist,./.env --rs --exit-child ./src/index.ts",
+    "copy-emails": "copyfiles -u 1 ./src/emails/dist/*.html ./dist",
+    "build-ts": "rimraf ./dist && tsc --build ./tsconfig.json",
+    "build": "pnpm build-ts && pnpm build-emails && pnpm copy-emails",
     "start": "node ./dist/index.js",
     "typecheck": "tsc --noEmit --project ./tsconfig.json",
     "prettify": "prettier --loglevel warn --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}' '!**/{node_modules,dist}/**/*'",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts .",
     "pmd": "prisma migrate dev",
     "pgc": "prisma generate",
-    "ps": "prisma studio --browser none"
+    "ps": "prisma studio --browser none",
+    "build-emails": "rimraf ./src/emails/dist && mkdir ./src/emails/dist && mjml ./src/emails/[!_]*.mjml -o ./src/emails/dist",
+    "watch-emails": "mjml -w ./src/emails/[!_]*.mjml -o ./src/emails/dist"
   },
   "prisma": {
     "schema": "./src/prisma/schema.prisma"
@@ -22,8 +26,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "fast-glob": "^3.3.3",
+    "handlebars": "^4.7.8",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
+    "mjml": "^4.15.3",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "superjson": "^2.2.2",
@@ -38,10 +45,10 @@
     "@types/node": "^22.10.2",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
+    "eslint-plugin-node": "^11.1.0",
     "prisma": "^6.1.0",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
-    "eslint-plugin-node": "^11.1.0"
+    "ts-node-dev": "^2.0.0"
   }
 }

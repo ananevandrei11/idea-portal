@@ -1,3 +1,4 @@
+import { sendWelcomeEmail } from '../../../lib/email';
 import { trpc } from '../../../lib/trpc';
 import { getPasswordHash } from '../../../utils/getPasswordHash';
 import { signJWT } from '../../../utils/signJWT';
@@ -27,6 +28,7 @@ export const signUpUserTRPCRoute = trpc.procedure.input(signUpTRPCInput).mutatio
       email: input.email,
     },
   });
+  await sendWelcomeEmail({ user });
   const token = signJWT(user.id);
   return { token };
 });
