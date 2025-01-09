@@ -1,6 +1,7 @@
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { Layout } from './components/Layout';
+import { NotAuthRouteTracker } from './components/NotAuthRouteTracker';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AppContextProvider } from './lib/context';
 import { routes } from './lib/routes';
@@ -22,6 +23,7 @@ export const App = () => {
       <TRPCProvider>
         <AppContextProvider>
           <BrowserRouter>
+            <NotAuthRouteTracker />
             <Routes>
               <Route element={<Layout />}>
                 <Route path={routes.pages.singUp} element={<SingUpPage />} />
