@@ -1,8 +1,8 @@
 import { omit } from 'lodash';
-import { trpc } from '../../../lib/trpc';
+import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { getIdeasTRPCInput } from './input';
 
-export const getIdeasTRPCRoute = trpc.procedure.input(getIdeasTRPCInput).query(async ({ input, ctx }) => {
+export const getIdeasTRPCRoute = trpcLoggedProcedure.input(getIdeasTRPCInput).query(async ({ input, ctx }) => {
   const normalizedSearch = input.search ? input.search.trim().replace(/[\s\n\t]/g, ' & ') : undefined;
   const rawIdeas = await ctx.prisma.idea.findMany({
     select: {

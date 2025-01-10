@@ -1,8 +1,8 @@
 import cors from 'cors';
 import express from 'express';
-import { logger } from 'handlebars';
 import { type AppContext, createAppContext } from './lib/context';
 import { env } from './lib/env';
+import { logger } from './lib/logger';
 import { applyPassportToExpressApp } from './lib/passport';
 import { applyTRPCToExpressApp } from './lib/trpc';
 import { trpcRouter } from './router';
@@ -22,10 +22,24 @@ void (async () => {
     await applyTRPCToExpressApp(expressApp, ctx, trpcRouter);
 
     expressApp.listen(env.PORT, () => {
-      logger.log(2, `Server started at http://localhost:${env.PORT}`);
+      logger.info({
+        logType: 'expressApp',
+        message: `Server started at http://localhost:${env.PORT}`,
+      });
     });
   } catch (e) {
-    console.error(e);
-    await ctx?.stop().catch(console.error);
+    logger.error({
+      logType: 'expressApp',
+      error: e,
+    });
+    await ctx?.stop().catch((e) => {
+      logger.error({
+        logType: 'expressApp',
+        error: e,
+        meta: {
+          ctx,
+        },
+      });
+    });
   }
 })();

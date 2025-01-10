@@ -1,7 +1,7 @@
-import { trpc } from '../../../lib/trpc';
+import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { setIdeaLikeIdeaTRPCInput } from './input';
 
-export const setIdeaLikeIdeaTRPCRoute = trpc.procedure
+export const setIdeaLikeIdeaTRPCRoute = trpcLoggedProcedure
   .input(setIdeaLikeIdeaTRPCInput)
   .mutation(async ({ input, ctx }) => {
     if (!ctx.me) {

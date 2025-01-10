@@ -3,14 +3,17 @@ import { z } from 'zod';
 
 dotenv.config();
 
+const zEnvNonemptyTrimmed = z.string().trim().min(1);
+
 const zEnv = z.object({
-  PORT: z.string().trim().min(1),
-  DATABASE_URL: z.string().trim().min(1),
-  JWT_SECRET: z.string().trim().min(1),
-  PASSWORD_SALT: z.string().trim().min(1),
-  INITIAL_ADMIN_PASSWORD: z.string().trim().min(1),
-  WEBAPP_URL: z.string().trim().min(1),
-  HOST_ENV: z.string().trim().min(1),
+  PORT: zEnvNonemptyTrimmed,
+  DATABASE_URL: zEnvNonemptyTrimmed,
+  JWT_SECRET: zEnvNonemptyTrimmed,
+  PASSWORD_SALT: zEnvNonemptyTrimmed,
+  INITIAL_ADMIN_PASSWORD: zEnvNonemptyTrimmed,
+  WEBAPP_URL: zEnvNonemptyTrimmed,
+  HOST_ENV: zEnvNonemptyTrimmed,
+  DEBUG: zEnvNonemptyTrimmed,
 });
 
 // eslint-disable-next-line node/no-process-env

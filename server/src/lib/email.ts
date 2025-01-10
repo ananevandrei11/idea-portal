@@ -5,6 +5,7 @@ import fg from 'fast-glob';
 import Handlebars from 'handlebars';
 import _ from 'lodash';
 import { env } from './env';
+import { logger } from './logger';
 
 const getHbrTemplates = _.memoize(async () => {
   const htmlPathsPattern = path.resolve(__dirname, '../emails/dist/**/*.html');
@@ -41,16 +42,28 @@ const sendEmail = async ({
       ...templateVariables,
       homeUrl: env.WEBAPP_URL,
     };
-    const html = await getEmailHtml(templateName, fullTemplateVaraibles);
-    console.info('sendEmail', {
-      to,
-      subject,
-      templateName,
-      html,
+    // const html = await getEmailHtml(templateName, fullTemplateVaraibles);
+    await getEmailHtml(templateName, fullTemplateVaraibles);
+    logger.info({
+      logType: 'email',
+      message: 'Email sent',
+      meta: {
+        to,
+        subject,
+        templateName,
+      },
     });
     return { ok: true };
   } catch (error) {
-    console.error(error);
+    logger.error({
+      logType: 'email',
+      error,
+      meta: {
+        to,
+        subject,
+        templateName,
+      },
+    });
     return { ok: false };
   }
 };

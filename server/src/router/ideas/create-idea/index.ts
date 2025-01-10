@@ -1,7 +1,7 @@
-import { trpc } from '../../../lib/trpc';
+import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { createIdeaTRPCInput } from './input';
 
-export const createIdeaTRPCRoute = trpc.procedure.input(createIdeaTRPCInput).mutation(async ({ input, ctx }) => {
+export const createIdeaTRPCRoute = trpcLoggedProcedure.input(createIdeaTRPCInput).mutation(async ({ input, ctx }) => {
   if (!ctx.me) {
     throw new Error('Unauthorized');
   }

@@ -1,9 +1,9 @@
 import { sendIdeaBlockedEmail } from '../../../lib/email';
-import { trpc } from '../../../lib/trpc';
+import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { canBlockIdeas } from '../../../utils/can';
 import { blockIdeaTRPCInput } from './input';
 
-export const blockIdeaTRPCRoute = trpc.procedure.input(blockIdeaTRPCInput).mutation(async ({ input, ctx }) => {
+export const blockIdeaTRPCRoute = trpcLoggedProcedure.input(blockIdeaTRPCInput).mutation(async ({ input, ctx }) => {
   if (!ctx.me) {
     throw new Error('Unauthorized');
   }
@@ -27,7 +27,7 @@ export const blockIdeaTRPCRoute = trpc.procedure.input(blockIdeaTRPCInput).mutat
       id: ideaId,
     },
     data: {
-      blockedAt: new Date(),
+      blockedAt: idea.blockedAt ? null : new Date(),
     },
   });
   await sendIdeaBlockedEmail({ user: idea.user, idea });

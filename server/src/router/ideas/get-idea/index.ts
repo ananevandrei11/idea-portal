@@ -1,9 +1,9 @@
 import { omit } from 'lodash';
 import { z } from 'zod';
-import { trpc } from '../../../lib/trpc';
+import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { hasPermission } from '../../../utils/can';
 
-export const getIdeaTRPCRoute = trpc.procedure
+export const getIdeaTRPCRoute = trpcLoggedProcedure
   .input(
     z.object({
       ideaNick: z.string(),
