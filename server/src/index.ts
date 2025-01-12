@@ -21,6 +21,21 @@ void (async () => {
     applyPassportToExpressApp(expressApp, ctx);
     await applyTRPCToExpressApp(expressApp, ctx, trpcRouter);
 
+    expressApp.use((error: unknown, req: express.Request, res: express.Response, next: express.NextFunction) => {
+      logger.error({
+        logType: 'expressApp',
+        error,
+        meta: {
+          req,
+        },
+      });
+      if (res.headersSent) {
+        next(error);
+        return;
+      }
+      res.status(500).send('Middleware error. Internal server error');
+    });
+
     expressApp.listen(env.PORT, () => {
       logger.info({
         logType: 'expressApp',
