@@ -21,6 +21,7 @@ export const getIdeaTRPCRoute = trpcLoggedProcedure
             id: true,
             nick: true,
             name: true,
+            avatar: true,
           },
         },
         ideasLikes: {

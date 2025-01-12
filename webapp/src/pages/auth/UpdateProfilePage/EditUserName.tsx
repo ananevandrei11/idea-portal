@@ -21,7 +21,7 @@ export function EditUserName(props: Props) {
       name: user?.name || '',
       nick: user?.nick || '',
     },
-    validationSchema: updateProfileTRPCInput,
+    validationSchema: updateProfileTRPCInput.omit({ avatar: true }),
     successMessage: 'Profile updated',
     resetOnSuccess: false,
     onSubmit: async (values) => {

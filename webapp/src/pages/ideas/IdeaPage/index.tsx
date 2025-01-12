@@ -30,6 +30,24 @@ function IdeaPage(props: Props) {
         {idea.user?.name}
       </div>
       <hr />
+      {idea.user.avatar && (
+        <>
+          <figure style={{ borderRadius: '50%', overflow: 'hidden', width: '100%', maxWidth: '80px' }}>
+            <img
+              src={idea.user.avatar || ''}
+              alt={idea.name}
+              style={{
+                width: '100%',
+                aspectRatio: 1 / 1,
+                objectFit: 'cover',
+                objectPosition: 'center',
+                verticalAlign: 'middle',
+              }}
+            />
+          </figure>
+          <hr />
+        </>
+      )}
       <div dangerouslySetInnerHTML={{ __html: idea?.text }} />
       {user && (
         <>

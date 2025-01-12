@@ -1,3 +1,4 @@
+import { EditAvatar } from './EditAvatar';
 import { EditPassword } from './EditPassword';
 import { EditUserName } from './EditUserName';
 import { ErrorPageComponent } from '@/components/ErrorComponent';
@@ -14,6 +15,7 @@ export function UpdateProfilePage() {
     <Segment title="Update User">
       <EditUserName user={user} />
       <EditPassword />
+      <EditAvatar user={user} />
     </Segment>
   );
 }
