@@ -49,6 +49,32 @@ function IdeaPage(props: Props) {
         </>
       )}
       <div dangerouslySetInnerHTML={{ __html: idea?.text }} />
+      <div
+        style={{
+          display: 'grid',
+          width: '100%',
+          columnGap: '1rem',
+          rowGap: '1rem',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        }}
+      >
+        {idea.images.length > 0 &&
+          idea.images.map((preview) => (
+            <figure key={preview}>
+              <img
+                src={preview}
+                alt=" "
+                style={{
+                  width: '100%',
+                  aspectRatio: 1 / 1,
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  verticalAlign: 'middle',
+                }}
+              />
+            </figure>
+          ))}
+      </div>
       {user && (
         <>
           <br />

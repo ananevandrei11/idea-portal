@@ -6,13 +6,12 @@ import { Button } from '@/components/Button';
 import { FormSegment } from '@/components/FormSegment';
 import { Segment } from '@/components/Segment';
 import { useFormFormik } from '@/components/hooks/useFormFormik';
+import { MAX_FILE_SIZE_IMAGE } from '@/lib/constants';
 import { trpc } from '@/lib/trpc';
 
 type Props = {
   user: NonNullable<TrpcRouterOutput['getMe']['me']>;
 };
-
-const MAX_FILE_SIZE = 100 * 1024;
 
 export function EditAvatar(props: Props) {
   const { user } = props;
@@ -39,9 +38,9 @@ export function EditAvatar(props: Props) {
   const handleFileChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
-      if (file && file.size > MAX_FILE_SIZE) {
+      if (file && file.size > MAX_FILE_SIZE_IMAGE) {
         event.target.value = '';
-        setSizeError(`File size must be less than ${MAX_FILE_SIZE / 1024} KB`);
+        setSizeError(`File size must be less than ${MAX_FILE_SIZE_IMAGE / 1024} KB`);
         void formik.setFieldValue('avatar', '');
         return;
       } else {
