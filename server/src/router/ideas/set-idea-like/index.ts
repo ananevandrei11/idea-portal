@@ -6,7 +6,7 @@ export const setIdeaLikeIdeaTRPCRoute = trpcLoggedProcedure
   .input(setIdeaLikeIdeaTRPCInput)
   .mutation(async ({ input, ctx }) => {
     if (!ctx.me) {
-      throw new Error('Unauthorized');
+      throw new Error('UNAUTHORIZED');
     }
     const { ideaId, isLikedByMe } = input;
     const idea = await ctx.prisma.idea.findUnique({

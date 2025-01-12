@@ -7,7 +7,7 @@ export const updateProfileTRPCRoute = trpcLoggedProcedure
   .input(updateProfileTRPCInput)
   .mutation(async ({ input, ctx }) => {
     if (!ctx.me) {
-      throw new Error('Unauthorized');
+      throw new Error('UNAUTHORIZED');
     }
     if (ctx.me.nick !== input.nick) {
       const exUser = await ctx.prisma.user.findUnique({

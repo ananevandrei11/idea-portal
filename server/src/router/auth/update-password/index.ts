@@ -7,7 +7,7 @@ export const updatePasswordTRPCRoute = trpcLoggedProcedure
   .input(updatePasswordTRPCInput)
   .mutation(async ({ input, ctx }) => {
     if (!ctx.me) {
-      throw new Error('Unauthorized');
+      throw new Error('UNAUTHORIZED');
     }
     if (ctx.me.password !== getPasswordHash(input.oldPassword)) {
       throw new ExpectedError('Wrong old password');

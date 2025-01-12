@@ -5,7 +5,7 @@ import { updateIdeaTRPCInput } from './input';
 
 export const updateIdeaTRPCRoute = trpcLoggedProcedure.input(updateIdeaTRPCInput).mutation(async ({ input, ctx }) => {
   if (!ctx.me) {
-    throw new Error('Unauthorized');
+    throw new Error('UNAUTHORIZED');
   }
   const { ideaId, ...inputData } = input;
   const idea = await ctx.prisma.idea.findUnique({
@@ -15,11 +15,11 @@ export const updateIdeaTRPCRoute = trpcLoggedProcedure.input(updateIdeaTRPCInput
   });
 
   if (!idea) {
-    throw new ExpectedError('NOT_FOUND');
+    throw new Error('NOT_FOUND');
   }
 
   if (!canEditIdea(ctx.me, idea)) {
-    throw new ExpectedError('NOT YOUR IDEA');
+    throw new Error('NOT_YOUR_IDEA');
   }
 
   if (idea.nick !== input.nick) {

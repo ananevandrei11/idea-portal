@@ -4,7 +4,7 @@ import { createIdeaTRPCInput } from './input';
 
 export const createIdeaTRPCRoute = trpcLoggedProcedure.input(createIdeaTRPCInput).mutation(async ({ input, ctx }) => {
   if (!ctx.me) {
-    throw new Error('Unauthorized');
+    throw new Error('UNAUTHORIZED');
   }
   const exIdea = await ctx.prisma.idea.findUnique({
     where: {

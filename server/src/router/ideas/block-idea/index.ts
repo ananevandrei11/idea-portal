@@ -1,12 +1,11 @@
 import { sendIdeaBlockedEmail } from '../../../lib/email';
-import { ExpectedError } from '../../../lib/error';
 import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { canBlockIdeas } from '../../../utils/can';
 import { blockIdeaTRPCInput } from './input';
 
 export const blockIdeaTRPCRoute = trpcLoggedProcedure.input(blockIdeaTRPCInput).mutation(async ({ input, ctx }) => {
   if (!ctx.me) {
-    throw new Error('Unauthorized');
+    throw new Error('UNAUTHORIZED');
   }
   if (!canBlockIdeas(ctx.me)) {
     throw new Error('Permissions Denied');
@@ -21,7 +20,7 @@ export const blockIdeaTRPCRoute = trpcLoggedProcedure.input(blockIdeaTRPCInput).
     },
   });
   if (!idea) {
-    throw new ExpectedError('NOT_FOUND');
+    throw new Error('NOT_FOUND');
   }
   await ctx.prisma.idea.update({
     where: {
