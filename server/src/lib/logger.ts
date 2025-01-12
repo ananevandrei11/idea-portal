@@ -1,6 +1,7 @@
 import debug from 'debug';
 import { serializeError } from 'serialize-error';
 import winston from 'winston';
+import { deepMap } from '../utils/deepMap';
 import { env } from './env';
 
 const winstonLogger = winston.createLogger({
@@ -28,14 +29,24 @@ const winstonLogger = winston.createLogger({
   ],
 });
 
+type Meta = Record<string, any> | undefined;
+const prettifyMeta = (meta: Meta): Meta => {
+  return deepMap(meta, ({ key, value }) => {
+    if (['email', 'password', 'newPassword', 'oldPassword', 'token', 'text', 'description'].includes(key)) {
+      return '***';
+    }
+    return value;
+  });
+};
+
 export const logger = {
-  info: ({ logType, message, meta }: { logType: string; message: string; meta?: Record<string, any> }) => {
+  info: ({ logType, message, meta }: { logType: string; message: string; meta?: Meta }) => {
     if (!debug.enabled(`idea-portal:${logType}`)) {
       return;
     }
-    winstonLogger.info(message, { logType, ...meta });
+    winstonLogger.info(message, { logType, ...prettifyMeta(meta) });
   },
-  error: ({ logType, error, meta }: { logType: string; error: any; meta?: Record<string, any> }) => {
+  error: ({ logType, error, meta }: { logType: string; error: any; meta?: Meta }) => {
     if (!debug.enabled(`idea-portal:${logType}`)) {
       return;
     }
@@ -44,7 +55,7 @@ export const logger = {
       logType,
       error,
       errorStack: serializedError.stack,
-      ...meta,
+      ...prettifyMeta(meta),
     });
   },
 };
