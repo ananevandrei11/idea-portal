@@ -6,5 +6,5 @@ export const updateProfileTRPCInput = z.object({
     .min(1)
     .regex(/^[a-z0-9-]+$/, 'Nick must contain only letters'),
   name: z.string().min(1),
-  avatar: z.string().nullable(),
+  avatar: z.string().nullable().optional(),
 });
