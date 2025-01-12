@@ -5,6 +5,7 @@ import { NotAuthRouteTracker } from './components/NotAuthRouteTracker';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AppContextProvider } from './lib/context';
 import { routes } from './lib/routes';
+import { SentryUser } from './lib/sentry';
 import { TRPCProvider } from './lib/trpc';
 import { NotFoundPage } from './pages/accessory/NotFoundPage';
 import { SingInPage } from './pages/auth/SingInPage';
@@ -23,6 +24,7 @@ export const App = () => {
       <TRPCProvider>
         <AppContextProvider>
           <BrowserRouter>
+            <SentryUser />
             <NotAuthRouteTracker />
             <Routes>
               <Route element={<Layout />}>

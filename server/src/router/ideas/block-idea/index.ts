@@ -1,4 +1,5 @@
 import { sendIdeaBlockedEmail } from '../../../lib/email';
+import { ExpectedError } from '../../../lib/error';
 import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { canBlockIdeas } from '../../../utils/can';
 import { blockIdeaTRPCInput } from './input';
@@ -20,7 +21,7 @@ export const blockIdeaTRPCRoute = trpcLoggedProcedure.input(blockIdeaTRPCInput).
     },
   });
   if (!idea) {
-    throw new Error('NOT_FOUND');
+    throw new ExpectedError('NOT_FOUND');
   }
   await ctx.prisma.idea.update({
     where: {

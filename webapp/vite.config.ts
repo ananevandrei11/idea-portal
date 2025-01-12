@@ -1,4 +1,5 @@
 import path from 'path';
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react';
 import { defineConfig, loadEnv } from 'vite';
 import svgr from 'vite-plugin-svgr';
@@ -8,7 +9,15 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
-    plugins: [react(), svgr()],
+    plugins: [
+      react(),
+      svgr(),
+      sentryVitePlugin({
+        org: 'studying-t9',
+        project: 'idea-portal',
+        authToken: env.SENTRY_AUTH_TOKEN,
+      }),
+    ],
     server: {
       port: +env.PORT,
     },

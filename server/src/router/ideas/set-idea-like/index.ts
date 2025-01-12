@@ -1,3 +1,4 @@
+import { ExpectedError } from '../../../lib/error';
 import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { setIdeaLikeIdeaTRPCInput } from './input';
 
@@ -14,7 +15,7 @@ export const setIdeaLikeIdeaTRPCRoute = trpcLoggedProcedure
       },
     });
     if (!idea) {
-      throw new Error('Idea not found');
+      throw new ExpectedError('Idea not found');
     }
     if (isLikedByMe) {
       await ctx.prisma.ideaLike.upsert({

@@ -1,3 +1,4 @@
+import { ExpectedError } from '../../../lib/error';
 import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { canEditIdea } from '../../../utils/can';
 import { updateIdeaTRPCInput } from './input';
@@ -14,11 +15,11 @@ export const updateIdeaTRPCRoute = trpcLoggedProcedure.input(updateIdeaTRPCInput
   });
 
   if (!idea) {
-    throw new Error('NOT_FOUND');
+    throw new ExpectedError('NOT_FOUND');
   }
 
   if (!canEditIdea(ctx.me, idea)) {
-    throw new Error('NOT YOUR IDEA');
+    throw new ExpectedError('NOT YOUR IDEA');
   }
 
   if (idea.nick !== input.nick) {
@@ -28,7 +29,7 @@ export const updateIdeaTRPCRoute = trpcLoggedProcedure.input(updateIdeaTRPCInput
       },
     });
     if (exIdea) {
-      throw new Error('Nick already exists');
+      throw new ExpectedError('Nick already exists');
     }
   }
   await ctx.prisma.idea.update({

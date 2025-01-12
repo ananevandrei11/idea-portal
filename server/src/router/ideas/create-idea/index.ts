@@ -1,3 +1,4 @@
+import { ExpectedError } from '../../../lib/error';
 import { trpcLoggedProcedure } from '../../../lib/trpc';
 import { createIdeaTRPCInput } from './input';
 
@@ -11,7 +12,7 @@ export const createIdeaTRPCRoute = trpcLoggedProcedure.input(createIdeaTRPCInput
     },
   });
   if (exIdea) {
-    throw new Error('Nick already exists');
+    throw new ExpectedError('Nick already exists');
   }
   await ctx.prisma.idea.create({
     data: {
