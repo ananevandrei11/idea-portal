@@ -8,7 +8,7 @@ if (env.VITE_WEB_SENTRY_DSN) {
     dsn: env.VITE_WEB_SENTRY_DSN,
     environment: env.VITE_NODE_ENV,
     normalizeDepth: 10,
-    integrations: [],
+    release: env.VITE_SOURCE_VERSION,
   });
 }
 

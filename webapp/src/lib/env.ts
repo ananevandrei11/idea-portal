@@ -5,6 +5,7 @@ export const zEnv = z.object({
   VITE_NAME_TOKEN_COOKIE: z.string().trim().min(1),
   VITE_NODE_ENV: z.enum(['development', 'production']),
   VITE_WEB_SENTRY_DSN: z.string().trim().min(1),
+  VITE_SOURCE_VERSION: z.string().trim().min(1),
 });
 
 // eslint-disable-next-line no-restricted-syntax

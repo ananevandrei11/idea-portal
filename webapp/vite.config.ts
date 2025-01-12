@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
         org: 'studying-t9',
         project: 'idea-portal',
         authToken: env.SENTRY_AUTH_TOKEN,
+        release: { name: env.VITE_SOURCE_VERSION },
       }),
     ],
     server: {
@@ -23,6 +24,9 @@ export default defineConfig(({ mode }) => {
     },
     preview: {
       port: +env.PORT,
+    },
+    build: {
+      sourcemap: true,
     },
     resolve: {
       alias: {
