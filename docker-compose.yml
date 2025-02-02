@@ -1,18 +1,14 @@
-version: '3.9'
 services:
-  # front:
+  # app:
   #   build:
-  #     context: ./front
+  #     context: ./webapp
   #     dockerfile: Dockerfile
-  #   container_name: front
+  #   container_name: webapp
   #   ports:
-  #     - '3000:3000'
-  #   environment:
+  #     - '8000:8000'  # Порт, который будет открыт для веб-приложения
   #   volumes:
-  #     - ./front:/app
-  #     - /app/node_modules
-  #   depends_on:
-  #     - postgres
+  #     - ./app/webapp:/app  # Монтируем локальные файлы в контейнер
+  #     - /app/node_modules   # Монтируем node_modules для предотвращения конфликта
   #   networks:
   #     - family-network
 
@@ -29,9 +25,30 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - family-network
+      - app-network
+
+  server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: server
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://admin:admin@postgres:5432/idea_portal?schema=public # Использование имени контейнера postgres
+    networks:
+      - app-network
+    command: >
+      sh -c "
+      until pg_isready -h postgres -p 5432; do
+        echo 'Waiting for postgres...'
+        sleep 2;
+      done;
+      pnpm back prisma migrate dev && pnpm back prisma generate"
 
 networks:
-  family-network:
+  app-network:
 volumes:
   pgdata:
