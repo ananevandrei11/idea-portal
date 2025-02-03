@@ -5,6 +5,7 @@
 	},
 	"scripts": {
 		"prepare": "husky",
+		"web": "pnpm --filter webapp dev",
 		"lint:frontend": "pnpm --filter webapp lint"
 	},
 	"lint-staged": {
