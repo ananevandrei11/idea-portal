@@ -1,0 +1,13 @@
+{
+	"devDependencies": {
+		"husky": "^9.1.7",
+		"lint-staged": "^15.4.3"
+	},
+	"scripts": {
+		"prepare": "husky",
+		"lint:frontend": "pnpm --filter webapp lint"
+	},
+	"lint-staged": {
+    "webapp/**/*.{js,ts,jsx,tsx}": "pnpm --filter webapp lint"
+  }
+}
