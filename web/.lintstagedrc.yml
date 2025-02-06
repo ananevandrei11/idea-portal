@@ -1,0 +1,2 @@
+'*.{js,ts,jsx,tsx}': 'pnpm --filter web exec eslint'
+'*.css': 'pnpm --filter web exec stylelint'

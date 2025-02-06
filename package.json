@@ -1,14 +1,13 @@
 {
+	"name": "idea-portal",
+  "private": true,
+  "version": "0.0.0",
 	"devDependencies": {
 		"husky": "^9.1.7",
 		"lint-staged": "^15.4.3"
 	},
 	"scripts": {
 		"prepare": "husky",
-		"web": "pnpm --filter webapp dev",
-		"lint:frontend": "pnpm --filter webapp lint"
-	},
-	"lint-staged": {
-    "webapp/**/*.{js,ts,jsx,tsx}": "pnpm --filter webapp lint"
-  }
+		"web": "pnpm --filter web dev"
+	}
 }
